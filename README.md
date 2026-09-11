@@ -1,4 +1,4 @@
-# .copilot
+# Spec Driven Development
 
 Multi-agent framework for API generation from JIRA requirements -
 documentation, OpenAPI, Spring Boot skeleton, and test generation.

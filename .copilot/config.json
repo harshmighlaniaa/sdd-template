@@ -1,0 +1,6 @@
+{
+  "defaultPermissionMode": "allow-all",
+  "trustedFolders": [
+    "."
+  ]
+}

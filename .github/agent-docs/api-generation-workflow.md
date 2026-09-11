@@ -7,7 +7,7 @@ design details remain authoritative in `FRAMEWORK_DESIGN.md`.
 
 Run stages sequentially:
 
-1. Static analysis
+1. Static requirement analysis
 2. Requirements normalization
 3. OpenAPI generation
 4. Data-model generation

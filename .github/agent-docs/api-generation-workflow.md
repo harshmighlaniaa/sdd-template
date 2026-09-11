@@ -1,8 +1,7 @@
 # API Generation Agent Workflow
 
 This is the shared contract for the API-generation custom agents. Repository
-design details remain authoritative in `FRAMEWORK_DESIGN.md`, `QUICKSTART.md`,
-and `TEMPLATES.md`.
+design details remain authoritative in `FRAMEWORK_DESIGN.md`.
 
 ## Execution order
 

@@ -45,7 +45,7 @@ stage on the user's behalf.
 
 # Procedure
 
-1. Read `README.md`, `FRAMEWORK_DESIGN.md`, `QUICKSTART.md`, `TEMPLATES.md`,
+1. Read `README.md`, `FRAMEWORK_DESIGN.md`,
    `.github/agent-docs/api-generation-workflow.md`, and all user-supplied input
    documents.
 2. Inventory the required JIRA PDF and optional OpenAPI, database, architecture,

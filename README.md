@@ -29,3 +29,6 @@ Custom-agent profiles are in `.github/agents/` and are automatically discovered
 by supported Copilot clients. Handoff buttons are supported in VS Code and
 compatible clients; GitHub.com cloud-agent execution currently ignores the
 `handoffs` property, so stage profiles can also be selected directly.
+
+For a complete non-technical operating procedure and first-test checklist, see
+[API Generation Runbook](RUNBOOK.md).

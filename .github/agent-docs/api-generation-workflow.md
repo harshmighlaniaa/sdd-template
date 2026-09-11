@@ -26,16 +26,67 @@ plan does not specify one. Keep coordination artifacts under:
 ```text
 {output_root}/
   generation-context.json
+  gap-analysis.md
   analysis-reports/
   openapi-spec/
   staging/
   project/
 ```
 
-Agents may update `generation-context.json` and their owned paths only. Write
-generated application code under `project/`; never overwrite unrelated source
-files. If an owned path already exists, follow the plan's overwrite policy or
-stop for a decision.
+Agents may update `generation-context.json`, `gap-analysis.md`, and their owned
+paths only. Write generated application code under `project/`; never overwrite
+unrelated source files. If an owned path already exists, follow the plan's
+overwrite policy or stop for a decision.
+
+## Gap analysis
+
+`gap-analysis.md` is the only generated artifact that contains full details of
+missing fields, missing context, ambiguities, conflicts, or unresolved
+decisions. Step 1 creates it, and every stage reads and updates it.
+
+Use stable IDs in the form `GAP-S{stage}-{sequence}`, for example
+`GAP-S1-001`. Organize entries by stage:
+
+```markdown
+# Gap Analysis
+
+## Stage 1
+
+<a id="gap-s1-001"></a>
+### GAP-S1-001 — Short summary
+
+- Status: open
+- Type: missing-field
+- Source: REQ-001; jira-export.pdf, page 3
+- Affected artifacts: requirements-analysis-report.json
+- Missing fields or context: Exact details that are absent or unclear.
+- Impact: What cannot be specified, generated, or validated.
+- Decision needed: The precise question that must be answered.
+- Owner: Product owner
+- Resolution: Pending
+
+## Stage 2
+```
+
+Allowed types are `missing-field`, `missing-context`, `ambiguity`, `conflict`,
+and `dependency`. Allowed statuses are `open`, `resolved`, and `deferred`.
+Resolving a gap updates the existing entry with the decision, source, owner, and
+timestamp; entries are never deleted or renumbered. Put a stable lowercase HTML
+anchor immediately before each heading so references remain valid if its summary
+changes.
+
+All other generated artifacts contain references only:
+
+- JSON artifacts use `gap_refs`, for example `["GAP-S1-001"]`.
+- OpenAPI uses `x-gap-refs` only where a contract element is affected.
+- Generated code and tests cite the gap ID in a TODO or disabled-test reason
+  only when the gap directly blocks implementation.
+- `generation-context.json` records the register path and stage-level gap IDs,
+  but never duplicates gap descriptions or missing-field details.
+
+Do not copy gap descriptions into reports, specifications, logs, source files,
+tests, warnings, failures, or completion summaries. Refer readers to
+`gap-analysis.md#gap-s1-001` for the full context.
 
 ## Generation context
 
@@ -80,14 +131,14 @@ stop for a decision.
     "test_manifest": null
   },
   "stages": {
-    "step1": {"status": "pending", "artifacts": [], "validated_at": null},
-    "step2": {"status": "pending", "artifacts": [], "validated_at": null},
-    "step3": {"status": "pending", "artifacts": [], "validated_at": null},
-    "step4": {"status": "pending", "artifacts": [], "validated_at": null},
-    "step5": {"status": "pending", "artifacts": [], "validated_at": null},
-    "step6": {"status": "pending", "artifacts": [], "validated_at": null}
+    "step1": {"status": "pending", "artifacts": [], "gap_refs": [], "validated_at": null},
+    "step2": {"status": "pending", "artifacts": [], "gap_refs": [], "validated_at": null},
+    "step3": {"status": "pending", "artifacts": [], "gap_refs": [], "validated_at": null},
+    "step4": {"status": "pending", "artifacts": [], "gap_refs": [], "validated_at": null},
+    "step5": {"status": "pending", "artifacts": [], "gap_refs": [], "validated_at": null},
+    "step6": {"status": "pending", "artifacts": [], "gap_refs": [], "validated_at": null}
   },
-  "gaps": [],
+  "gap_analysis_path": "gap-analysis.md",
   "warnings": [],
   "decisions": [],
   "failures": []
@@ -96,7 +147,8 @@ stop for a decision.
 
 Requirement records must have stable IDs, source references, and confidence.
 Generated endpoints, models, classes, and tests must cite the IDs they satisfy.
-Never remove gaps or warnings without recording the resolving decision.
+Gap details live only in `gap-analysis.md`; all other artifacts carry gap IDs.
+Never remove a gap or warning without recording the resolving decision.
 
 ## Status and failure rules
 
@@ -117,7 +169,7 @@ output as valid.
 
 | Stage | Owned output | Completion gate |
 | --- | --- | --- |
-| Step 1 | `analysis-reports/requirements-analysis-report.json` | Required PDF parsed; extracted records have IDs and sources; gaps listed |
+| Step 1 | `gap-analysis.md`, `analysis-reports/requirements-analysis-report.json` | Required PDF parsed; extracted records have IDs and sources; gaps registered and referenced |
 | Step 2 | `analysis-reports/normalized-requirements.json` | Endpoints, entities, integrations, and feature matrix validate and trace to Step 1 |
 | Step 3 | `openapi-spec/{project}-openapi-3.0.yaml`, `analysis-reports/openapi-validation.json` | OpenAPI 3.x validates; operations and schemas trace to normalized requirements |
 | Step 4 | `staging/data-model/`, `analysis-reports/entity-mapping-report.json` | Java model artifacts are internally consistent; schema conflicts are resolved or blocked |
@@ -125,4 +177,5 @@ output as valid.
 | Step 6 | Test paths under `project/`, `analysis-reports/test-generation-log.json` | Generated tests compile; executed checks and intentionally blocked tests are distinguished |
 
 Every completion response lists changed artifacts, validation performed, open
-gaps, and the next eligible stage. It must not start the next stage.
+gap IDs with a link to `gap-analysis.md`, and the next eligible stage. It must
+not duplicate gap details or start the next stage.

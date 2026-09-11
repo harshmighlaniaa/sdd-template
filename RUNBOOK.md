@@ -116,7 +116,8 @@ Success means:
    > `com.example.order`, Java 21, Spring Boot 3.x, and Gradle. Use
    > `runs/order-api-test` as the output folder and do not overwrite existing
    > files. Use the attached JIRA PDF and supporting documents. Update
-   > `plan.md`, list all assumptions and gaps, and stop before Step 1.
+   > `plan.md`, list planning assumptions, and stop before Step 1. During
+   > generation, keep full gap details only in `gap-analysis.md`.
 
 7. Send the prompt and wait for the planner to finish.
 
@@ -158,6 +159,7 @@ and send:
 Confirm these files exist under the run output folder:
 
 - `generation-context.json`
+- `gap-analysis.md`
 - `analysis-reports/requirements-analysis-report.json`
 
 Confirm `generation-context.json` shows Step 1 as `complete`.
@@ -167,7 +169,8 @@ Review the report and check:
 - acceptance criteria match the JIRA wording
 - acceptance tests are present
 - each record identifies its source page or section
-- unclear or conflicting requirements appear under gaps
+- unclear or conflicting requirements have `gap_refs` pointing to full entries
+  under the Stage 1 heading in `gap-analysis.md`
 - the agent did not invent endpoints or business rules
 
 If Step 1 is `blocked` or `failed`, read the recorded reason, correct the input,
@@ -197,7 +200,8 @@ Confirm Step 2 is `complete`, then review:
 - identified domain entities
 - integrations and security needs
 - the feature matrix mapping every acceptance criterion
-- any decisions still marked as gaps
+- any `gap_refs` resolve to entries under the Stage 2 heading in
+  `gap-analysis.md`
 
 Ask the agent to correct the artifact if the proposed API does not match the
 business intent. Do not continue until the corrections validate.
@@ -317,7 +321,8 @@ Confirm Step 6 is `complete`, then review:
 Before sharing the generated project:
 
 1. Open `generation-context.json` and confirm Steps 1 through 6 are `complete`.
-2. Review all entries in `gaps`, `warnings`, `decisions`, and `failures`.
+2. Review all entries in `gap-analysis.md` and all `warnings`, `decisions`, and
+   `failures` in `generation-context.json`.
 3. Confirm the generated OpenAPI file matches the accepted API design.
 4. Confirm the code-generation log reports a successful compile.
 5. Confirm the test-generation log distinguishes passing checks from blocked

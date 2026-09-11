@@ -23,10 +23,11 @@ optional sample OpenAPI specification. Refuse execution unless Step 2 is
 3. Define operations, parameters, request and response schemas, validation,
    error responses, media types, reusable components, and approved security
    schemes. Preserve requirement IDs through extensions or descriptions.
-4. Record conflicts between requirements and the sample contract rather than
-   choosing silently.
+4. Record full conflict and missing-contract details only in `gap-analysis.md`;
+   add `x-gap-refs` to affected contract elements rather than choosing silently.
 5. Write the contract under `openapi-spec/`, the validation report at
-   `analysis-reports/openapi-validation.json`, and update shared context.
+   `analysis-reports/openapi-validation.json`, update `gap-analysis.md`, and
+   update shared context. The validation report contains gap IDs only.
 6. Run an existing OpenAPI validator when available; otherwise perform strict
    structural and reference validation and state the limitation.
 
@@ -34,4 +35,4 @@ optional sample OpenAPI specification. Refuse execution unless Step 2 is
 
 Do not add unapproved endpoints, fields, authentication, or success responses.
 No design gap may be hidden by a permissive schema. Stop after reporting
-artifacts, validation, gaps, and Step 4 eligibility.
+artifacts, validation, gap IDs, and Step 4 eligibility.

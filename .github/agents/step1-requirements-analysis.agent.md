@@ -25,7 +25,9 @@ when the plan assigns them to Step 1.
    edge cases, contradictions, and ambiguities.
 4. Assign stable IDs and source references including document, page or section,
    and quoted heading or concise evidence. Record extraction confidence.
-5. Write only `analysis-reports/requirements-analysis-report.json` and the shared
+5. Create or update `gap-analysis.md` with full details for every uncertainty or
+   missing input. Write only gap ID references in
+   `analysis-reports/requirements-analysis-report.json` and the shared
    GenerationContext.
 6. Validate required fields, unique IDs, source coverage, and internal
    references. Set `complete` only when the shared completion gate passes.
@@ -33,5 +35,6 @@ when the plan assigns them to Step 1.
 # Constraints
 
 Do not design endpoints or infer missing business behavior. Put uncertain or
-missing information in `gaps` with the decision needed. On failure, preserve
-diagnostics and stop. Report artifacts, validation, gaps, and Step 2 eligibility.
+missing information only in `gap-analysis.md` with the decision needed; use
+`gap_refs` elsewhere. On failure, preserve diagnostics and stop. Report
+artifacts, validation, gap IDs, and Step 2 eligibility.

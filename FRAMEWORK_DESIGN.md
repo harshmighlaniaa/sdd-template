@@ -309,10 +309,16 @@ All agents share a **"GenerationContext"** that includes:
   
   // Metadata
   "inputDocuments": [...],     // Uploaded files
-  "gaps": [...],               // Unresolved requirements
+  "gapAnalysisPath": "gap-analysis.md",
+  "gapRefs": [...],            // IDs only; details live in gap-analysis.md
   "warnings": [...]            // Quality flags
 }
 ```
+
+Each run maintains `{output_root}/gap-analysis.md` as the single detailed gap
+register, grouped by Stage 1 through Stage 6. Generated reports, specifications,
+code, tests, and shared state contain stable gap ID references only; they do not
+repeat missing-field or missing-context details.
 
 ### **Error Handling**
 - Each agent validates its output

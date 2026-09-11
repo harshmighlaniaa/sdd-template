@@ -338,5 +338,5 @@ Before approving a specification:
     nullability, and collection semantics.
 11. Map each operation and validation rule to its source requirement and
     acceptance test.
-12. Record unresolved design decisions as clarifications; do not invent them.
-
+12. Record unresolved design decisions in the run's `gap-analysis.md`; place
+    only stable gap ID references in the specification and validation report.

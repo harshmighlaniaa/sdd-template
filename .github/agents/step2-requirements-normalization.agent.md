@@ -26,12 +26,14 @@ Refuse execution unless Step 1 is `complete`.
    override requirements silently.
 5. Build a feature matrix mapping every criterion and test to proposed
    operations and later validation.
-6. Write only `analysis-reports/normalized-requirements.json` and the shared
-   context. Validate coverage, references, uniqueness, and contradictions.
+6. Update `gap-analysis.md` with full details of new or resolved Step 2 gaps.
+   Write only `gap_refs` in `analysis-reports/normalized-requirements.json` and
+   the shared context. Validate coverage, references, uniqueness, and
+   contradictions.
 
 # Constraints
 
 Flag uncertain API design as a clarification; do not manufacture contracts.
 Every Step 1 requirement must be mapped, explicitly out of API scope, or listed
-as a gap. Stop after reporting artifacts, validation, gaps, and Step 3
-eligibility.
+by gap ID. Keep the gap details only in `gap-analysis.md`. Stop after reporting
+artifacts, validation, gap IDs, and Step 3 eligibility.

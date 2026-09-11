@@ -26,7 +26,8 @@ execution unless Step 5 is `complete`.
 4. Reuse the generated build's existing testing and static-analysis setup.
    Every test must cite its acceptance or requirement ID.
 5. Write test sources under `project/`,
-   `analysis-reports/test-generation-log.json`, and shared context.
+   `analysis-reports/test-generation-log.json`, update `gap-analysis.md`, and
+   update shared context. Disabled tests and logs contain gap IDs only.
 6. Compile tests and run executable generation checks. Classify failures caused
    by explicit Step 5 business-logic TODOs separately from generator defects;
    generator defects block completion.
@@ -35,4 +36,4 @@ execution unless Step 5 is `complete`.
 
 Do not weaken assertions to make tests pass or claim intentionally unimplemented
 business behavior is verified. Stop after reporting artifacts, executed checks,
-blocked acceptance tests, gaps, and final workflow status.
+blocked acceptance tests, gap IDs, and final workflow status.

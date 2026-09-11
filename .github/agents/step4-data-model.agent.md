@@ -25,8 +25,10 @@ Step 3 is `complete`.
    and mapper interfaces using repository-documented Java 21 and Spring Boot 3
    conventions.
 4. Preserve API/domain/persistence boundaries and requirement traceability.
-5. Write only staged model files under `staging/data-model/`,
-   `analysis-reports/entity-mapping-report.json`, and shared context.
+5. Write staged model files under `staging/data-model/`,
+   `analysis-reports/entity-mapping-report.json`, `gap-analysis.md`, and shared
+   context. Keep conflict details only in the gap register and use gap ID
+   references in model files and the mapping report.
 6. Validate Java syntax, type references, mapper pairs, relationship ownership,
    nullability, and OpenAPI/schema consistency.
 
@@ -34,4 +36,4 @@ Step 3 is `complete`.
 
 Database and OpenAPI conflicts must be resolved by an existing decision or
 block completion. Do not invent migrations or business logic. Stop after
-reporting artifacts, validation, gaps, and Step 5 eligibility.
+reporting artifacts, validation, gap IDs, and Step 5 eligibility.

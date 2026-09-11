@@ -25,7 +25,7 @@ A plug-and-play orchestrator that transforms JIRA PDF extracts into fully functi
         ▼                        ▼                        ▼
    ┌─────────────┐         ┌──────────────┐       ┌──────────────┐
    │   STEP 1    │         │   STEP 2     │       │   STEP 3     │
-   │Static Code  │────────▶│Requirements  │──────▶│ OpenAPI/    │
+   │Requirements │────────▶│Requirements  │──────▶│ OpenAPI/    │
    │Analysis Agent         │Analysis Agent        │Swagger Agent │
    │             │         │              │       │              │
    └─────────────┘         └──────────────┘       └──────────────┘
@@ -60,7 +60,7 @@ A plug-and-play orchestrator that transforms JIRA PDF extracts into fully functi
 
 ## Agents & Responsibilities
 
-### **Step 1: Static Code Analysis Agent**
+### **Step 1: Requirements Analysis Agent**
 **Input:** JIRA PDF extract  
 **Output:** Structured analysis (acceptance criteria, acceptance tests, edge cases, non-functional requirements)
 
@@ -334,7 +334,7 @@ db_schema: "b2b_schema.sql"              # optional
 
 ### **Orchestrator Execution**
 ```
-1. Static Analysis Agent
+1. Requirements Analysis Agent
    ✓ Parsed 25 acceptance criteria from PDF
    ✓ Identified 8 smoke tests
    ✓ Extracted 4 non-functional requirements
@@ -378,4 +378,3 @@ db_schema: "b2b_schema.sql"              # optional
 3. **Testing:** End-to-end workflow with real JIRA PDFs
 4. **Docs:** User guide + example walkthroughs
 5. **Enhancements:** Add Phase 2 features (migrations, CI/CD, etc.)
-

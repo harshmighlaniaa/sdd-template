@@ -4,7 +4,7 @@ description: Plans the six-stage JIRA-to-Spring-Boot API generation workflow and
 argument-hint: Describe the API project and provide the JIRA PDF plus any optional OpenAPI, schema, architecture, or security documents.
 tools: ["*"]
 agents:
-  - step1-static-analysis
+  - step1-requirements-analysis
   - step2-requirements-normalization
   - step3-openapi
   - step4-data-model
@@ -12,8 +12,8 @@ agents:
   - step6-test-generator
 handoffs:
   - label: "Run Step 1: Analyze requirements"
-    agent: step1-static-analysis
-    prompt: "Execute Step 1 from the approved plan. Read plan.md and .github/agent-docs/api-generation-workflow.md, verify the required JIRA PDF is available, initialize or update the GenerationContext, and produce the static-analysis report with source traceability. Stop after reporting the completion gate."
+    agent: step1-requirements-analysis
+    prompt: "Execute Step 1 from the approved plan. Read plan.md and .github/agent-docs/api-generation-workflow.md, verify the required JIRA PDF is available, initialize or update the GenerationContext, and produce the requirements-analysis report with source traceability. Stop after reporting the completion gate."
     send: false
   - label: "Run Step 2: Normalize requirements"
     agent: step2-requirements-normalization

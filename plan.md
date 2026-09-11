@@ -23,8 +23,8 @@ gaps; agents must not invent them.
 ## Execution plan
 
 1. **Analyze source requirements**
-   - Agent: `step1-static-analysis`
-   - Produce `analysis-reports/static-analysis-report.json`.
+   - Agent: `step1-requirements-analysis`
+   - Produce `analysis-reports/requirements-analysis-report.json`.
    - Extract stable, source-linked IDs for requirements, criteria, tests,
      non-functional requirements, dependencies, edge cases, and ambiguities.
    - Gate: the required PDF parsed successfully and every extracted record has
@@ -32,7 +32,7 @@ gaps; agents must not invent them.
 
 2. **Normalize requirements**
    - Agent: `step2-requirements-normalization`
-   - Produce `analysis-reports/requirements-analysis.json`.
+   - Produce `analysis-reports/normalized-requirements.json`.
    - Define proposed endpoints, entities, integrations, clarifications, and the
      feature-to-criteria matrix.
    - Gate: every Step 1 record is mapped, declared out of API scope, or retained
@@ -77,7 +77,7 @@ gaps; agents must not invent them.
 
 | Label | Target | Prerequisite |
 | --- | --- | --- |
-| Run Step 1: Analyze requirements | `step1-static-analysis` | Approved input inventory and readable JIRA PDF |
+| Run Step 1: Analyze requirements | `step1-requirements-analysis` | Approved input inventory and readable JIRA PDF |
 | Run Step 2: Normalize requirements | `step2-requirements-normalization` | Step 1 complete |
 | Run Step 3: Build OpenAPI contract | `step3-openapi` | Step 2 complete |
 | Run Step 4: Generate data model | `step4-data-model` | Step 3 complete |

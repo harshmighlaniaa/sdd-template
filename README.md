@@ -12,7 +12,7 @@ approved repository-root `plan.md` without generating application code.
 
 The planner exposes six review-before-send handoffs:
 
-1. Step 1 Static Analysis
+1. Step 1 Requirements Analysis
 2. Step 2 Requirements Normalization
 3. Step 3 OpenAPI
 4. Step 4 Data Model

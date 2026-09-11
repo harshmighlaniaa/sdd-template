@@ -1,5 +1,5 @@
 ---
-name: Step 1 Static Analysis
+name: Step 1 Requirements Analysis
 description: Extracts traceable functional, acceptance, non-functional, dependency, and ambiguity records from JIRA requirement documents.
 argument-hint: Run after the planner has approved inputs and a plan.
 tools: ["*"]
@@ -25,7 +25,7 @@ when the plan assigns them to Step 1.
    edge cases, contradictions, and ambiguities.
 4. Assign stable IDs and source references including document, page or section,
    and quoted heading or concise evidence. Record extraction confidence.
-5. Write only `analysis-reports/static-analysis-report.json` and the shared
+5. Write only `analysis-reports/requirements-analysis-report.json` and the shared
    GenerationContext.
 6. Validate required fields, unique IDs, source coverage, and internal
    references. Set `complete` only when the shared completion gate passes.

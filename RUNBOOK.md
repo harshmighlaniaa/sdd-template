@@ -145,7 +145,7 @@ Continue only when the plan is accurate.
 
 Use the **Run Step 1: Analyze requirements** handoff button.
 
-If no button appears, select **Step 1 Static Analysis** from the agent picker
+If no button appears, select **Step 1 Requirements Analysis** from the agent picker
 and send:
 
 > Execute Step 1 from the approved `plan.md`. Read
@@ -158,7 +158,7 @@ and send:
 Confirm these files exist under the run output folder:
 
 - `generation-context.json`
-- `analysis-reports/static-analysis-report.json`
+- `analysis-reports/requirements-analysis-report.json`
 
 Confirm `generation-context.json` shows Step 1 as `complete`.
 
@@ -188,7 +188,7 @@ Use **Run Step 2: Normalize requirements**, or select
 
 Confirm this file exists:
 
-- `analysis-reports/requirements-analysis.json`
+- `analysis-reports/normalized-requirements.json`
 
 Confirm Step 2 is `complete`, then review:
 

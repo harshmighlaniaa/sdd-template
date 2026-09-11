@@ -117,8 +117,8 @@ output as valid.
 
 | Stage | Owned output | Completion gate |
 | --- | --- | --- |
-| Step 1 | `analysis-reports/static-analysis-report.json` | Required PDF parsed; extracted records have IDs and sources; gaps listed |
-| Step 2 | `analysis-reports/requirements-analysis.json` | Endpoints, entities, integrations, and feature matrix validate and trace to Step 1 |
+| Step 1 | `analysis-reports/requirements-analysis-report.json` | Required PDF parsed; extracted records have IDs and sources; gaps listed |
+| Step 2 | `analysis-reports/normalized-requirements.json` | Endpoints, entities, integrations, and feature matrix validate and trace to Step 1 |
 | Step 3 | `openapi-spec/{project}-openapi-3.0.yaml`, `analysis-reports/openapi-validation.json` | OpenAPI 3.x validates; operations and schemas trace to normalized requirements |
 | Step 4 | `staging/data-model/`, `analysis-reports/entity-mapping-report.json` | Java model artifacts are internally consistent; schema conflicts are resolved or blocked |
 | Step 5 | `project/`, `analysis-reports/code-generation-log.json` | Selected build compiles or all generation-caused failures are fixed |

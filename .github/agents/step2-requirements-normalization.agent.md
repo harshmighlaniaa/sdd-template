@@ -26,7 +26,7 @@ Refuse execution unless Step 1 is `complete`.
    override requirements silently.
 5. Build a feature matrix mapping every criterion and test to proposed
    operations and later validation.
-6. Write only `analysis-reports/requirements-analysis.json` and the shared
+6. Write only `analysis-reports/normalized-requirements.json` and the shared
    context. Validate coverage, references, uniqueness, and contradictions.
 
 # Constraints

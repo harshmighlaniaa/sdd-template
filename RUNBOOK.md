@@ -88,11 +88,31 @@ Write down these values before opening the planner:
 
 If you do not know a value, tell the planner that it is undecided. Do not guess.
 
+### Optional Features
+
+The framework supports 12 optional features organized in three tiers:
+
+- **Tier 1 (Production Readiness)**: JWT Authentication, Flyway Migrations,
+  Observability, Docker Support
+- **Tier 2 (Framework Maturity)**: API Versioning, Conflict Resolution, Caching,
+  Rate Limiting
+- **Tier 3 (Developer Experience)**: Integration Tests, Troubleshooting Guide,
+  Architecture Decision Records, Performance Testing
+
+All features are **disabled by default** for initial runs. After your first
+successful generation, you can enable features incrementally using
+`features.yml` or environment variables. See "Enabling Optional Features"
+section below.
+
 ## First test
 
 For the first test, use a small, non-sensitive JIRA export with one to three
 API operations. Omit optional inputs unless they are necessary. This makes
 failures easier to understand.
+
+**Important**: Optional features are **disabled by default**. This is intentional
+for initial testing. After your first successful run, enable features
+incrementally using the "Enabling Optional Features" section below.
 
 Success means:
 
@@ -109,7 +129,7 @@ Success means:
 2. Create or select a new working branch.
 3. Open the agent picker in the prompt box.
 4. Select **API Generation Planner**.
-5. Attach the JIRA PDF and any optional files.
+5. Attach the JIRA PDF and any optional files (OpenAPI, schema, architecture docs).
 6. Paste and update this prompt:
 
    > Plan a test generation run for project `order-api`, package
@@ -120,6 +140,28 @@ Success means:
    > generation, keep full gap details only in `gap-analysis.md`.
 
 7. Send the prompt and wait for the planner to finish.
+
+### About Planner Intelligence
+
+The API Generation Planner now includes domain-aware validation patterns that
+detect architectural requirements such as:
+
+- Multi-system abstraction and adapter patterns
+- Hierarchical data structures and authorization inheritance
+- Asynchronous request/response patterns for long-running operations
+- Data source boundaries and out-of-scope exclusions
+- Optional attribute expansion and filtering logic
+- Rate limiting and resilience requirements
+- Observability and auditability needs
+
+If the planner identifies incomplete specifications for these patterns, it will
+ask clarifying questions. Answer with business decisions; do not ask the agent
+to guess. Examples:
+
+- "The requirements mention multiple integrations. Is there an abstraction
+  boundary normalizing requests and responses?"
+- "Does accessing a parent fleet grant access to all child fleets?"
+- "Should long-running operations use an async submit-and-poll pattern?"
 
 ### Planner checkpoint
 
@@ -333,6 +375,89 @@ Before sharing the generated project:
 Do not deploy the generated project directly. Service implementations may
 contain intentional TODOs that require developer work.
 
+## Enabling Optional Features
+
+After your first successful API generation, you can enable optional features to
+add production-ready capabilities:
+
+### Step 1: Check Current Feature Status
+
+```bash
+./scripts/check-features.sh
+```
+
+This shows all 12 features with their current status (✅ ENABLED or ⏸️ DISABLED).
+
+### Step 2: Enable Features
+
+**Option A: Edit configuration file**
+
+```bash
+vim features.yml
+
+# Find the feature you want to enable, e.g.:
+# security:
+#   jwt-authentication:
+#     enabled: false  ← change to: true
+
+# Or observability:
+#   metrics-collection:
+#     enabled: false  ← change to: true
+```
+
+**Option B: Use environment variables**
+
+```bash
+# Enable JWT Authentication
+export FEATURES_SECURITY_JWT_AUTHENTICATION_ENABLED=true
+
+# Enable Observability
+export FEATURES_OBSERVABILITY_METRICS_COLLECTION_ENABLED=true
+
+# Run the generated application
+cd runs/order-api-test/project/
+./gradlew bootRun
+```
+
+### Step 3: Recommended Feature Enablement Order
+
+**Phase 1 (Production Readiness)** – Enable for production deployments:
+1. JWT Authentication (security)
+2. Flyway Migrations (database versioning)
+3. Observability (monitoring and metrics)
+4. Docker (containerization)
+
+**Phase 2 (Framework Maturity)** – Enable when scaling:
+1. API Versioning (backward compatibility)
+2. Caching (performance optimization)
+3. Rate Limiting (abuse protection)
+
+**Phase 3 (Developer Experience)** – Enable for team collaboration:
+1. Integration Tests (quality assurance)
+2. Architecture Decision Records (institutional knowledge)
+3. Troubleshooting Guide (developer support)
+4. Performance Testing (benchmarking)
+
+### Step 4: Verify Feature Status
+
+```bash
+# Check that features are enabled
+./scripts/check-features.sh
+
+# View configuration
+cat features.yml
+
+# Expected output shows:
+# Tier 1: Production Readiness
+#   1. JWT Authentication
+#      Status: ✅ ENABLED
+#   2. Flyway Migrations
+#      Status: ✅ ENABLED
+#   ... etc
+```
+
+For detailed information on each feature, see `FEATURES.md`.
+
 ## Troubleshooting
 
 | Problem | Action |
@@ -347,6 +472,8 @@ contain intentional TODOs that require developer work.
 | Generated project does not compile | Keep the run at Step 5 and ask the code generator to fix generation-caused errors |
 | Tests fail because services are TODOs | Confirm they are classified as blocked acceptance tests, then assign implementation to a developer |
 | Agent changed unrelated files | Stop, discard those unrelated changes, and rerun with the owned-path restriction from the shared workflow contract |
+| Feature not enabling | Verify `features.yml` has `enabled: true`, restart the application, and check with `./scripts/check-features.sh` |
+| Planner asks unexpected questions | This indicates enhanced domain validation detected architectural patterns; answer with business decisions |
 
 ## Operator completion record
 

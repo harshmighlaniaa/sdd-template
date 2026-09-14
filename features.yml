@@ -1,0 +1,119 @@
+# SDD Template - Optional Features Configuration
+# This file tracks which optional features are enabled or disabled
+# Each feature can be independently toggled via this configuration
+
+features:
+  # Tier 1: Production Readiness Features
+  security:
+    jwt-authentication:
+      enabled: false
+      description: "JWT token-based authentication with OAuth2 flows"
+      requires:
+        - spring-security
+        - java-jwt
+
+  persistence:
+    flyway-migrations:
+      enabled: false
+      description: "Versioned database schema management with Flyway"
+      requires:
+        - flyway
+        - spring-boot-data-jpa
+
+  observability:
+    metrics-collection:
+      enabled: false
+      description: "Prometheus metrics, health checks, and distributed tracing"
+      requires:
+        - spring-boot-actuator
+        - micrometer-prometheus
+        - spring-cloud-sleuth
+
+  deployment:
+    docker:
+      enabled: false
+      description: "Docker containerization and Docker Compose support"
+      requires:
+        - docker
+        - docker-compose
+
+  # Tier 2: Framework Maturity Features
+  api:
+    versioning:
+      enabled: false
+      description: "API versioning for backward compatibility"
+      requires:
+        - spring-mvc
+
+  framework:
+    dependency-management:
+      enabled: false
+      description: "Multi-feature conflict resolution and dependency tracking"
+      requires:
+        - documentation
+
+  performance:
+    caching:
+      enabled: false
+      description: "Method-level caching with Redis and Caffeine"
+      requires:
+        - spring-cache
+        - caffeine
+        - redis  # optional
+
+  protection:
+    rate-limiting:
+      enabled: false
+      description: "Rate limiting and throttling for API protection"
+      requires:
+        - bucket4j
+        - spring-security
+
+  # Tier 3: Developer Experience Features
+  testing:
+    integration-tests:
+      enabled: false
+      description: "Comprehensive integration test suite with TestContainers"
+      requires:
+        - testcontainers
+        - spring-boot-test
+        - junit5
+
+    performance-benchmarks:
+      enabled: false
+      description: "Performance testing framework with JMH and Gatling"
+      requires:
+        - jmh
+        - gatling
+
+  documentation:
+    troubleshooting-guide:
+      enabled: false
+      description: "Comprehensive troubleshooting documentation"
+      requires:
+        - documentation
+
+    adrs:
+      enabled: false
+      description: "Architecture Decision Records (ADRs) documentation"
+      requires:
+        - documentation
+
+# Feature Status Summary
+# enabled-count: 0/12
+# status-breakdown:
+#   tier-1-production: 0/4
+#   tier-2-framework: 0/4
+#   tier-3-developer-experience: 0/4
+
+# Implementation Guidance
+# 1. To enable a feature, set 'enabled: true' above
+# 2. Verify all 'requires' dependencies are available
+# 3. Check FEATURES.md for acceptance criteria before enabling
+# 4. Features can be enabled/disabled individually without affecting others
+# 5. Some features may have interdependencies (noted in FEATURES.md)
+
+# Environment Variable Override
+# Features can also be enabled via environment variables following this pattern:
+# FEATURES_{CATEGORY}_{FEATURE}_{PROPERTY}=value
+# Example: FEATURES_SECURITY_JWT_AUTHENTICATION_ENABLED=true
